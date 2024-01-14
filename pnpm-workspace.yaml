@@ -1,0 +1,3 @@
+packages:
+- '.'
+- 'addondemo.ui.html'
