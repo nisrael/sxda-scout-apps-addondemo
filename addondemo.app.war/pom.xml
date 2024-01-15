@@ -30,7 +30,7 @@
         </property>
       </activation>
       <properties>
-        <docker.repository>nisrael/sxda-scout-apps-addondemo</docker.repository>
+        <docker.repository>sxda-scout-apps-addondemo</docker.repository>
         <docker.tag>local</docker.tag>
       </properties>
     </profile>
@@ -45,9 +45,9 @@
       </activation>
       <properties>
         <!--suppress UnresolvedMavenProperty -->
-        <docker.repository>${env.IMAGE_NAME}</docker.repository>
+        <docker.repository>${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_NAME}</docker.repository>
         <!--suppress UnresolvedMavenProperty -->
-        <docker.tag>${env.GITHUB_SHA}</docker.tag>
+        <docker.tag>${env.DOCKER_TAG}</docker.tag>
       </properties>
     </profile>
   </profiles>
@@ -86,8 +86,9 @@
           </execution>
         </executions>
         <configuration>
+
           <repository>${docker.repository}</repository>
-          <tag>${project.version}</tag>
+          <tag>${docker.tag}</tag>
         </configuration>
       </plugin>
     </plugins>
