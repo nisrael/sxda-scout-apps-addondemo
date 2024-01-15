@@ -15,25 +15,11 @@
 
   <name>Addon Demo Application</name>
   <properties>
-    <docker.repository/>
-    <docker.tag/>
+    <docker.repository>sxda-scout-apps-addondemo</docker.repository>
+    <docker.tag>local</docker.tag>
   </properties>
 
   <profiles>
-    <profile>
-      <id>no-ci</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-        <property>
-          <name>!env.CI</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <properties>
-        <docker.repository>sxda-scout-apps-addondemo</docker.repository>
-        <docker.tag>local</docker.tag>
-      </properties>
-    </profile>
     <profile>
       <id>ci</id>
       <activation>
