@@ -6,9 +6,19 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  GITHUB_SHA: ${{ github.sha }}
+  CI: true
+
 jobs:
-  build:
+  build-and-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     strategy:
       matrix:
@@ -17,10 +27,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+        # Login against a Docker registry except on PR
+        # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
           cache: maven
 
-      - run: mvn -B install --no-transfer-progress --file pom.xml
+      - run: mvn -B package --no-transfer-progress --file pom.xml
+      - run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+
+
