@@ -49,7 +49,7 @@ jobs:
           mvn verify \
             -B --fail-at-end --no-transfer-progress --file pom.xml \
             -D docker.repository=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }} \
-            -D docker.tag=${{ env.DOCKER_TAG }}
+            -D docker.tag=${{ env.DOCKER_TAG_SHA }}
 
       - name: Publish Unit Test Report
         if: success() || failure()
