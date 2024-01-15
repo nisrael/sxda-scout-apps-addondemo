@@ -14,6 +14,29 @@
   <packaging>war</packaging>
 
   <name>Addon Demo Application</name>
+  <properties>
+    <docker.repository>sxda-scout-apps-addondemo</docker.repository>
+    <docker.tag>local</docker.tag>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>ci</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>env.CI</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <properties>
+        <!--suppress UnresolvedMavenProperty -->
+        <docker.repository>${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_NAME}</docker.repository>
+        <!--suppress UnresolvedMavenProperty -->
+        <docker.tag>${env.DOCKER_TAG}</docker.tag>
+      </properties>
+    </profile>
+  </profiles>
 
   <build>
     <finalName>io.sxda.scout.apps.addondemo</finalName>
@@ -33,6 +56,25 @@
         <artifactId>maven-resources-plugin</artifactId>
         <configuration>
           <escapeString>\</escapeString>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.4.13</version>
+        <executions>
+          <execution>
+            <id>default</id>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+
+          <repository>${docker.repository}</repository>
+          <tag>${docker.tag}</tag>
         </configuration>
       </plugin>
     </plugins>

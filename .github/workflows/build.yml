@@ -6,9 +6,20 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_IMAGE_NAME: ${{ github.repository }}
+  DOCKER_TAG: ${{ github.sha }}
+  CI: true
+
 jobs:
-  build:
+  build-and-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+      packages: write
 
     strategy:
       matrix:
@@ -17,10 +28,31 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+        # Login against a Docker registry except on PR
+        # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
           cache: maven
 
-      - run: mvn -B install --no-transfer-progress --file pom.xml
+      - run: mvn -B verify --fail-at-end --no-transfer-progress --file pom.xml
+
+      - name: Publish Unit Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
+
+      # push image except on PR
+      - run: docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG }}
+        if: github.event_name != 'pull_request'
+
+
+
