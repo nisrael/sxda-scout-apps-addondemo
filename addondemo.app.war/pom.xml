@@ -19,25 +19,6 @@
     <docker.tag>local</docker.tag>
   </properties>
 
-  <profiles>
-    <profile>
-      <id>ci</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-        <property>
-          <name>env.CI</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <properties>
-        <!--suppress UnresolvedMavenProperty -->
-        <docker.repository>${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_NAME}</docker.repository>
-        <!--suppress UnresolvedMavenProperty -->
-        <docker.tag>${env.DOCKER_TAG}</docker.tag>
-      </properties>
-    </profile>
-  </profiles>
-
   <build>
     <finalName>io.sxda.scout.apps.addondemo</finalName>
 
