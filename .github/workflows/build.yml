@@ -54,7 +54,7 @@ jobs:
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
         with:
-          report_path: **/failsafe-reports/*.xml
+          report_path: '**/failsafe-reports/*.xml'
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
