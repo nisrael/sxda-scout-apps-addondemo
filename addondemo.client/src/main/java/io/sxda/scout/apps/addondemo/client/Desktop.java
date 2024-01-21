@@ -1,8 +1,10 @@
 package io.sxda.scout.apps.addondemo.client;
 
-import java.beans.PropertyChangeEvent;
-import java.util.List;
-
+import io.sxda.scout.apps.addondemo.client.Desktop.UserProfileMenu.ThemeMenu.DarkThemeMenu;
+import io.sxda.scout.apps.addondemo.client.Desktop.UserProfileMenu.ThemeMenu.DefaultThemeMenu;
+import io.sxda.scout.apps.addondemo.client.settings.SettingsOutline;
+import io.sxda.scout.apps.addondemo.client.work.WorkOutline;
+import io.sxda.scout.apps.addondemo.shared.Icons;
 import org.eclipse.scout.rt.client.session.ClientSessionProvider;
 import org.eclipse.scout.rt.client.ui.action.keystroke.IKeyStroke;
 import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
@@ -19,12 +21,8 @@ import org.eclipse.scout.rt.platform.util.CollectionUtility;
 import org.eclipse.scout.rt.platform.util.StringUtility;
 import org.eclipse.scout.rt.security.IAccessControlService;
 
-import io.sxda.scout.apps.addondemo.client.Desktop.UserProfileMenu.ThemeMenu.DarkThemeMenu;
-import io.sxda.scout.apps.addondemo.client.Desktop.UserProfileMenu.ThemeMenu.DefaultThemeMenu;
-import io.sxda.scout.apps.addondemo.client.search.SearchOutline;
-import io.sxda.scout.apps.addondemo.client.settings.SettingsOutline;
-import io.sxda.scout.apps.addondemo.client.work.WorkOutline;
-import io.sxda.scout.apps.addondemo.shared.Icons;
+import java.beans.PropertyChangeEvent;
+import java.util.List;
 
 /**
  * @author nisrael
@@ -53,7 +51,9 @@ public class Desktop extends AbstractDesktop {
   @Override
   protected List<Class<? extends IOutline>> getConfiguredOutlines() {
     return CollectionUtility.<Class<? extends IOutline>>arrayList(
-      WorkOutline.class, SearchOutline.class, SettingsOutline.class);
+      WorkOutline.class,
+      SettingsOutline.class
+    );
   }
 
   @Override
@@ -191,28 +191,6 @@ public class Desktop extends AbstractDesktop {
   }
 
   @Order(2000)
-  public class SearchOutlineViewButton extends AbstractOutlineViewButton {
-
-    public SearchOutlineViewButton() {
-      this(SearchOutline.class);
-    }
-
-    protected SearchOutlineViewButton(Class<? extends SearchOutline> outlineClass) {
-      super(Desktop.this, outlineClass);
-    }
-
-    @Override
-    protected DisplayStyle getConfiguredDisplayStyle() {
-      return DisplayStyle.TAB;
-    }
-
-    @Override
-    protected String getConfiguredKeyStroke() {
-      return IKeyStroke.F3;
-    }
-  }
-
-  @Order(3000)
   public class SettingsOutlineViewButton extends AbstractOutlineViewButton {
 
     public SettingsOutlineViewButton() {
@@ -233,4 +211,5 @@ public class Desktop extends AbstractDesktop {
       return IKeyStroke.F10;
     }
   }
+
 }

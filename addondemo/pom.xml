@@ -38,6 +38,28 @@
     <module>../addondemo.ui.html</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>scout-rt</id>
+      <url>https://download.eclipse.org/scout/releases/latest/</url>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/releases/</url>
+    </repository>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <dependencyManagement>
     <dependencies>
       <!-- Scout Dependencies -->
@@ -69,6 +91,17 @@
         <groupId>io.sxda.scout.apps</groupId>
         <artifactId>addondemo.ui.html</artifactId>
         <version>${io.sxda.scout.apps.addondemo.version}</version>
+      </dependency>
+      <!-- Ace -->
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.client</artifactId>
+        <version>${sxda.ace.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.ui.html</artifactId>
+        <version>${sxda.ace.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
