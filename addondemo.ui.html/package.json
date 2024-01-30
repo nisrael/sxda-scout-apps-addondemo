@@ -29,12 +29,17 @@
   },
   "devDependencies": {
     "@eclipse-scout/cli": "23.2.15",
-    "@eclipse-scout/releng": "^22.0.0",
+    "@eclipse-scout/releng": "^22.0.2",
     "@eclipse-scout/tsconfig": "23.2.15",
     "@types/jquery": "3.5.16"
   },
   "dependencies": {
     "@eclipse-scout/core": "23.2.15",
+    "@eclipse-scout/chart": "^23.2.15",
+    "@sxda/scout-addon-ace": "^23.2.1",
+    "ace-builds": "1.32.5",
+    "webpack": "5.80.0",
+    "file-loader": "^6.2.0",
     "jquery": "3.6.0"
   }
 }

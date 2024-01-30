@@ -6,5 +6,13 @@ import {ObjectFactory} from '@eclipse-scout/core';
 // Define namespace and put it onto window (necessary for model variants, e.g. @ModelVariant(${classPrefixLowerCase}.Example)
 import * as self from './index';
 
+import * as chart from '@eclipse-scout/chart';
+Object.assign({}, chart);
+
+import * as sxda from '@sxda/scout-addon-ace';
+Object.assign({}, sxda);
+
 export default self;
 ObjectFactory.get().registerNamespace('addondemo', self);
+
+

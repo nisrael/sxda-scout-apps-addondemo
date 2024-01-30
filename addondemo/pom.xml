@@ -8,7 +8,8 @@
   ~
   ~ SPDX-License-Identifier: EPL-2.0
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -26,7 +27,9 @@
     <io.sxda.scout.apps.addondemo.version>${project.version}</io.sxda.scout.apps.addondemo.version>
     <jdk.source.version>17</jdk.source.version>
     <org.eclipse.scout.rt.version>23.2.15</org.eclipse.scout.rt.version>
-    <master_npm_release_dependency_mapping>--mapping.0.regex=@eclipse-scout --mapping.0.version=${org.eclipse.scout.rt.version}</master_npm_release_dependency_mapping>
+    <master_npm_release_dependency_mapping>--mapping.0.regex=@eclipse-scout
+      --mapping.0.version=${org.eclipse.scout.rt.version}
+    </master_npm_release_dependency_mapping>
   </properties>
 
   <modules>
@@ -37,6 +40,21 @@
     <module>../addondemo.app.dev</module>
     <module>../addondemo.ui.html</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>scout-rt</id>
+      <url>https://download.eclipse.org/scout/releases/latest/</url>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/releases/</url>
+    </repository>
+  </repositories>
 
   <dependencyManagement>
     <dependencies>
@@ -69,6 +87,17 @@
         <groupId>io.sxda.scout.apps</groupId>
         <artifactId>addondemo.ui.html</artifactId>
         <version>${io.sxda.scout.apps.addondemo.version}</version>
+      </dependency>
+      <!-- Ace -->
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.client</artifactId>
+        <version>${sxda.ace.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>ace.ui.html</artifactId>
+        <version>${sxda.ace.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
