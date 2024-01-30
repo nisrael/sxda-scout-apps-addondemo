@@ -36,8 +36,10 @@
   "dependencies": {
     "@eclipse-scout/core": "23.2.15",
     "@eclipse-scout/chart": "^23.2.15",
-    "@sxda/scout-addon-ace": "^23.2.1-snapshot",
-    "ace-builds": "1.32.3",
+    "@sxda/scout-addon-ace": "^23.2.1",
+    "ace-builds": "1.32.5",
+    "webpack": "5.80.0",
+    "file-loader": "^6.2.0",
     "jquery": "3.6.0"
   }
 }

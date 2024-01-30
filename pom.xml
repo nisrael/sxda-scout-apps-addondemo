@@ -24,7 +24,7 @@
     <master_webpack_options>--progress=false --clean=false</master_webpack_options>
     <master_karma_output_dir>target/karma-reports</master_karma_output_dir>
     <master_npm_release_dependency_mapping>--mapping.0.regex=@eclipse-scout --mapping.0.version=${org.eclipse.scout.rt.version}</master_npm_release_dependency_mapping>
-    <sxda.ace.version>23.2.1-SNAPSHOT</sxda.ace.version>
+    <sxda.ace.version>23.2.1</sxda.ace.version>
   </properties>
   <build>
     <plugins>

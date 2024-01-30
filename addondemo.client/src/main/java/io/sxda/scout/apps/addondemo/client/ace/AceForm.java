@@ -1,7 +1,6 @@
 package io.sxda.scout.apps.addondemo.client.ace;
 
-import io.sxda.scout.addon.ace.client.acefield.AbstractAceField;
-import io.sxda.scout.addon.ace.client.acefield.AceTheme;
+import io.sxda.scout.addon.ace.client.acefield.*;
 import io.sxda.scout.apps.addondemo.shared.ace.AceFormData;
 import io.sxda.scout.apps.addondemo.shared.ace.IAceService;
 import org.eclipse.scout.rt.client.dto.FormData;
@@ -116,8 +115,8 @@ public class AceForm extends AbstractForm {
 
       @Override
       protected void execInitAction() {
-        AceThemeLocalLookupCall lookupCall = new AceThemeLocalLookupCall();
-        List<? extends ILookupRow<String>> rows = lookupCall.execCreateLookupRows();
+        AceThemeLookupCall lookupCall = new AceThemeLookupCall();
+        List<? extends ILookupRow<String>> rows = lookupCall.getDataByAll();
         for (ILookupRow<String> row : rows) {
           AbstractMenu menu = new AbstractMenu() {
             @Override
@@ -131,6 +130,34 @@ public class AceForm extends AbstractForm {
             }
           };
           getMenuByClass(ThemeButton.class).addChildAction(menu);
+        }
+      }
+    }
+
+    @Order(4500)
+    public class ModeButton extends AbstractMenu {
+      @Override
+      protected String getConfiguredText() {
+        return TEXTS.get("sxda.aceForm.modeButton.label");
+      }
+
+      @Override
+      protected void execInitAction() {
+        AceModeLookupCall lookupCall = new AceModeLookupCall();
+        List<? extends ILookupRow<String>> rows = lookupCall.getDataByAll();
+        for (ILookupRow<String> row : rows) {
+          AbstractMenu menu = new AbstractMenu() {
+            @Override
+            protected String getConfiguredText() {
+              return row.getText();
+            }
+
+            @Override
+            protected void execAction() {
+              getAceField().setAceMode(row.getKey());
+            }
+          };
+          getMenuByClass(ModeButton.class).addChildAction(menu);
         }
       }
     }
@@ -197,8 +224,13 @@ public class AceForm extends AbstractForm {
         }
 
         @Override
+        protected String getConfiguredAceMode() {
+          return AceMode.JAVA.getConfigTerm();
+        }
+
+        @Override
         protected boolean getConfiguredEnabled() {
-          return false;
+          return true;
         }
       }
 
