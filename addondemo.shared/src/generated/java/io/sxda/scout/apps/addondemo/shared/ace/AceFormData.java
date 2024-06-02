@@ -1,9 +1,8 @@
 package io.sxda.scout.apps.addondemo.shared.ace;
 
+import jakarta.annotation.Generated;
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
 import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
-
-import javax.annotation.Generated;
 
 /**
  * <b>NOTE:</b><br>

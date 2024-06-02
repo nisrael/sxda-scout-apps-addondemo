@@ -30,7 +30,7 @@ jobs:
 
         # Login against a Docker registry except on PR
         # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
+      - name: Log into registry ${{ env.DOCKER_REGISTRY }}
         if: github.event_name != 'pull_request'
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
@@ -44,21 +44,22 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build war and image with Maven and run tests
+      - name: Build zip with Maven and run tests
         run: |
           mvn verify \
-            -B --fail-at-end --no-transfer-progress --file pom.xml \
-            -D docker.repository=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }} \
-            -D docker.tag=${{ env.DOCKER_TAG_SHA }}
+            -B --fail-at-end --no-transfer-progress --file pom.xml
 
       - name: Publish Unit Test Report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1
 
-      - name: Tag and push image except on PR
+      - name: Build and push image except on PR
         if: github.event_name != 'pull_request'
         run: |
-          docker tag \
-            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG_SHA }} \
-            ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG_REF }}
-          docker push --all-tags ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
+          mvn install \
+            -P exec.docker.image \
+            -D docker.app.image.registry=${{ env.DOCKER_REGISTRY }} \
+            -D docker.app.image.name=${{ env.DOCKER_IMAGE_NAME }} \
+            -D docker.app.image.tag=${{ env.DOCKER_TAG_REF }} \
+            -D docker.app.image.tag2=${{ env.DOCKER_TAG_SHA }} \
+            -am -pl addondemo.app.image

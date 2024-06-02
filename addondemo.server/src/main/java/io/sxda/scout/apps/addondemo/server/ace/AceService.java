@@ -3,8 +3,6 @@ package io.sxda.scout.apps.addondemo.server.ace;
 import io.sxda.scout.apps.addondemo.server.ServerSession;
 import io.sxda.scout.apps.addondemo.shared.ace.AceFormData;
 import io.sxda.scout.apps.addondemo.shared.ace.IAceService;
-import io.sxda.scout.apps.addondemo.shared.helloworld.HelloWorldFormData;
-import io.sxda.scout.apps.addondemo.shared.helloworld.IHelloWorldService;
 
 /**
  * @author nisrael

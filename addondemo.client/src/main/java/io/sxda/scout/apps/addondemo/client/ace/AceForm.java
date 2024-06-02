@@ -256,7 +256,7 @@ public class AceForm extends AbstractForm {
         }
 
         @Override
-        protected Class<? extends IValueField> getConfiguredMasterField() {
+        protected Class<? extends IValueField<?>> getConfiguredMasterField() {
           return AceField.class;
         }
 

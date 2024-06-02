@@ -6,13 +6,11 @@
   <parent>
     <groupId>io.sxda.scout.apps</groupId>
     <artifactId>addondemo</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>24.1.0-SNAPSHOT</version>
     <relativePath>../addondemo</relativePath>
   </parent>
 
   <artifactId>addondemo.shared</artifactId>
-
-  <name>Addon Demo Shared</name>
 
   <dependencies>
     <dependency>
@@ -31,10 +29,6 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.scout.rt</groupId>
-      <artifactId>org.eclipse.scout.rt.chart.shared</artifactId>
     </dependency>
   </dependencies>
 </project>
