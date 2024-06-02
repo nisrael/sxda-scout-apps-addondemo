@@ -22,7 +22,7 @@
     <!-- build target (push) -->
     <docker.app.image>localhost:5000/app</docker.app.image> <!-- set a desired registry before using profile exec.docker.image (e.g. registry.hub.docker.com/yourusername) -->
     <!-- java source image (pull) -->
-    <docker.java.image>docker.io/eclipse-temurin:17-jdk-jammy</docker.java.image>
+    <docker.java.image>registry-1.docker.io/library/eclipse-temurin:17-jdk-jammy</docker.java.image>
     <sxda.addon.version>24.1.3</sxda.addon.version>
   </properties>
 
