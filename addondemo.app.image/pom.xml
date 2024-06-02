@@ -25,7 +25,6 @@
           </to>
           <from>
             <image>${docker.java.image}</image>
-            <credHelper>none</credHelper>
           </from>
           <container>
             <mainClass>org.eclipse.scout.rt.app.Application</mainClass>
