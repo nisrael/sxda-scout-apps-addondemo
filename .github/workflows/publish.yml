@@ -3,7 +3,7 @@ name: build and publish image
 on:
   workflow_dispatch:
   push:
-    branches: [ "**" ]
+    branches: [ "main" ]
 
 env:
   DOCKER_IMAGE_REGISTRY: ghcr.io/${{ github.repository }}
