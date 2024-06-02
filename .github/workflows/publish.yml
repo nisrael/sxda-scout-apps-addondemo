@@ -8,7 +8,6 @@ on:
 env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_IMAGE_REGISTRY: ghcr.io/${{ github.repository }}
-  DOCKER_TAG_SHA: ${{ github.sha }}
   DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
   DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,15 +41,16 @@ jobs:
       - name: Set DOCKER_TAG_REF
         run: echo "DOCKER_TAG_REF=$(echo ${GITHUB_REF#refs/*/} | sed 's/\//_/g')" >> $GITHUB_ENV
 
+      - name: Set DOCKER_TAG_SHA
+        run: echo "DOCKER_TAG_SHA=$(echo ${GITHUB_SHA::7})" >> $GITHUB_ENV
+
       - name: Build and push image except for main branch
         if: github.ref != 'refs/heads/main'
         run: |
           ./mvnw install \
             -B --no-transfer-progress --file pom.xml \
-            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
+            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }}:${GITHUB_SHA::7} \
             -P exec.docker.image \
-            -D docker.app.image.tag.ref=${{ env.DOCKER_TAG_REF }} \
-            -D docker.app.image.tag.sha=${{ env.DOCKER_TAG_SHA }} \
             -am -pl addondemo.app.image
 
       - name: Build and push image for main branch
@@ -58,7 +58,6 @@ jobs:
         run: |
           ./mvnw install \
             -B --no-transfer-progress --file pom.xml \
-            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
+            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }}:latest \
             -P exec.docker.image \
-            -D docker.app.image.tag.sha=${{ env.DOCKER_TAG_SHA }} \
             -am -pl addondemo.app.image

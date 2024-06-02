@@ -21,11 +21,7 @@
         <artifactId>jib-maven-plugin</artifactId>
         <configuration>
           <to>
-            <image>${docker.app.image.registry}/app</image>
-            <tags>
-              <tag>${docker.app.image.tag.ref}</tag>
-              <tag>${docker.app.image.tag.sha}</tag>
-            </tags>
+            <image>${docker.app.image}</image>
           </to>
           <from>
             <image>${docker.java.image}</image>
