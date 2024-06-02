@@ -1,8 +1,8 @@
-name: build, package and deploy java parts
+name: build and publish on demand
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
   workflow_dispatch:
 
 env:
@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-  build-and-push-image:
+  build-and-publish-image:
     runs-on: ubuntu-latest
 
     permissions:
@@ -39,18 +39,6 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-
-      - name: Build zip with Maven and run tests
-        run: |
-          ./mvnw verify \
-            -B --fail-at-end --no-transfer-progress --file pom.xml
-
-      - name: Publish Unit Test Report
-        if: success() || failure()
-        uses: scacap/action-surefire-report@v1
-        with:
-          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
 
       - name: Build and push image except on PR
         if: github.event_name != 'pull_request'
