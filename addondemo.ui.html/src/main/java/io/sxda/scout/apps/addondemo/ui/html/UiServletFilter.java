@@ -2,19 +2,22 @@ package io.sxda.scout.apps.addondemo.ui.html;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.security.ConfigFileCredentialVerifier;
-import org.eclipse.scout.rt.server.commons.authentication.*;
+import org.eclipse.scout.rt.server.commons.authentication.DevelopmentAccessController;
+import org.eclipse.scout.rt.server.commons.authentication.FormBasedAccessController;
 import org.eclipse.scout.rt.server.commons.authentication.FormBasedAccessController.FormBasedAuthConfig;
+import org.eclipse.scout.rt.server.commons.authentication.ServletFilterHelper;
+import org.eclipse.scout.rt.server.commons.authentication.TrivialAccessController;
 import org.eclipse.scout.rt.server.commons.authentication.TrivialAccessController.TrivialAuthConfig;
 
 /**
@@ -22,12 +25,11 @@ import org.eclipse.scout.rt.server.commons.authentication.TrivialAccessControlle
  *
  * @author nisrael
  */
-public class  UiServletFilter implements Filter {
+public class UiServletFilter implements Filter {
 
   private TrivialAccessController m_trivialAccessController;
   private FormBasedAccessController m_formBasedAccessController;
   private DevelopmentAccessController m_developmentAccessController;
-  private AnonymousAccessController m_anonymousAccessController;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -39,7 +41,6 @@ public class  UiServletFilter implements Filter {
         .init(new FormBasedAuthConfig()
             .withCredentialVerifier(BEANS.get(ConfigFileCredentialVerifier.class)));
     m_developmentAccessController = BEANS.get(DevelopmentAccessController.class).init();
-    m_anonymousAccessController = BEANS.get(AnonymousAccessController.class).init();
   }
 
   @Override
@@ -59,10 +60,6 @@ public class  UiServletFilter implements Filter {
       return;
     }
 
-    if (m_anonymousAccessController.handle(req, resp, chain)) {
-      return;
-    }
-
     BEANS.get(ServletFilterHelper.class).forwardToLoginForm(req, resp);
   }
 
@@ -70,7 +67,6 @@ public class  UiServletFilter implements Filter {
   public void destroy() {
     m_developmentAccessController.destroy();
     m_formBasedAccessController.destroy();
-    m_trivialAccessController.destroy();
     m_trivialAccessController.destroy();
   }
 }

@@ -56,6 +56,10 @@ public class AceForm extends AbstractForm {
     return getFieldByClass(MainBox.TopBox.AceField.class);
   }
 
+  public MainBox.TopBox.ContentsField getContentsField() {
+    return getFieldByClass(MainBox.TopBox.ContentsField.class);
+  }
+
   public MainBox.ToggleEnabledButton getToggleEnabledButton() {
     return getFieldByClass(MainBox.ToggleEnabledButton.class);
   }
@@ -256,7 +260,7 @@ public class AceForm extends AbstractForm {
         }
 
         @Override
-        protected Class<? extends IValueField> getConfiguredMasterField() {
+        protected Class<? extends IValueField<?>> getConfiguredMasterField() {
           return AceField.class;
         }
 
