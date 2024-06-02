@@ -1,15 +1,15 @@
 name: build and publish on demand
 
 on:
-  push:
-    branches: [ "**" ]
   workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_IMAGE_REGISTRY: ghcr.io/${{ github.repository }}
   DOCKER_TAG_SHA: ${{ github.sha }}
-  DOCKER_TAG_REF: ${{ github.ref_name }}
+  DOCKER_TAG_REF: ${{ replace(github.ref_name, '/', '_') }}
   DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
   DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,13 +40,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image except on PR
-        if: github.event_name != 'pull_request'
+      - name: Build and push image except for main branch
+        if: github.ref != 'refs/heads/main'
         run: |
           ./mvnw install \
             -B --no-transfer-progress --file pom.xml \
             -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
             -P exec.docker.image \
             -D docker.app.image.tag.ref=${{ env.DOCKER_TAG_REF }} \
+            -D docker.app.image.tag.sha=${{ env.DOCKER_TAG_SHA }} \
+            -am -pl addondemo.app.image
+
+      - name: Build and push image for main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ./mvnw install \
+            -B --no-transfer-progress --file pom.xml \
+            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
+            -P exec.docker.image \
             -D docker.app.image.tag.sha=${{ env.DOCKER_TAG_SHA }} \
             -am -pl addondemo.app.image

@@ -21,9 +21,7 @@
     <master_plugin_jib_version>3.4.3</master_plugin_jib_version>
     <!-- build target (push) -->
     <docker.app.image.registry>localhost:5000</docker.app.image.registry> <!-- set a desired registry before using profile exec.docker.image (e.g. registry.hub.docker.com/yourusername) -->
-    <docker.app.image.name>24.1</docker.app.image.name>
-    <docker.app.image.tag.latest>24.1-latest</docker.app.image.tag.latest>
-    <docker.app.image.tag.ref>ref</docker.app.image.tag.ref>
+    <docker.app.image.tag.ref>24.1-latest</docker.app.image.tag.ref>
     <docker.app.image.tag.sha>sha</docker.app.image.tag.sha>
     <!-- java source image (pull) -->
     <docker.java.image.registry>docker.io</docker.java.image.registry>
