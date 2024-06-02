@@ -37,6 +37,8 @@ jobs:
             -D docker.app.image=${{ env.DOCKER_IMAGE_REGISTRY }}:${GITHUB_SHA::7} \
             -D jib.to.auth.username=${{ env.DOCKER_REGISTRY_USERNAME }} \
             -D jib.to.auth.password=${{ env.DOCKER_REGISTRY_PASSWORD }} \
+            -D jib.from.auth.username=${{ secrets.DOCKERHUB_USERNAME }} \
+            -D jib.from.auth.password=${{ secrets.DOCKERHUB_TOKEN }} \
             -P exec.docker.image \
             -am -pl addondemo.app.image
 
@@ -48,5 +50,7 @@ jobs:
             -D docker.app.image=${{ env.DOCKER_IMAGE_REGISTRY }}:latest \
             -D jib.to.auth.username=${{ env.DOCKER_REGISTRY_USERNAME }} \
             -D jib.to.auth.password=${{ env.DOCKER_REGISTRY_PASSWORD }} \
+            -D jib.from.auth.username=${{ secrets.DOCKERHUB_USERNAME }} \
+            -D jib.from.auth.password=${{ secrets.DOCKERHUB_TOKEN }} \
             -P exec.docker.image \
             -am -pl addondemo.app.image
