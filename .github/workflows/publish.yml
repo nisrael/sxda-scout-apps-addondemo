@@ -1,0 +1,64 @@
+name: build, package and deploy java parts
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_IMAGE_REGISTRY: ghcr.io/${{ github.repository }}
+  DOCKER_TAG_SHA: ${{ github.sha }}
+  DOCKER_TAG_REF: ${{ github.ref_name }}
+  DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
+  DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Log into registry ${{ env.DOCKER_REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Build zip with Maven and run tests
+        run: |
+          ./mvnw verify \
+            -B --fail-at-end --no-transfer-progress --file pom.xml
+
+      - name: Publish Unit Test Report
+        if: success() || failure()
+        uses: scacap/action-surefire-report@v1
+        with:
+          report_paths: '**/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml, **/karma-reports/**/test-*.xml'
+
+      - name: Build and push image except on PR
+        if: github.event_name != 'pull_request'
+        run: |
+          ./mvnw install \
+            -B --no-transfer-progress --file pom.xml \
+            -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
+            -P exec.docker.image \
+            -D docker.app.image.tag.ref=${{ env.DOCKER_TAG_REF }} \
+            -D docker.app.image.tag.sha=${{ env.DOCKER_TAG_SHA }} \
+            -am -pl addondemo.app.image
