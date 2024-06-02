@@ -1,4 +1,4 @@
-name: build and publish on demand
+name: build and publish image
 
 on:
   workflow_dispatch:

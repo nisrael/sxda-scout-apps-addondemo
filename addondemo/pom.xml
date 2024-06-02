@@ -24,10 +24,9 @@
     <docker.app.image.tag.ref>24.1-latest</docker.app.image.tag.ref>
     <docker.app.image.tag.sha>sha</docker.app.image.tag.sha>
     <!-- java source image (pull) -->
-    <docker.java.image.registry>docker.io</docker.java.image.registry>
-    <docker.java.image.name>eclipse-temurin</docker.java.image.name>
+    <docker.java.image.name>docker.io/eclipse-temurin</docker.java.image.name>
     <docker.java.image.tag>17-jdk-jammy</docker.java.image.tag>
-    <docker.java.image>${docker.java.image.registry}/${docker.java.image.name}:${docker.java.image.tag}</docker.java.image>
+    <docker.java.image>${docker.java.image.name}:${docker.java.image.tag}</docker.java.image>
     <sxda.addon.version>24.1.3</sxda.addon.version>
   </properties>
 
