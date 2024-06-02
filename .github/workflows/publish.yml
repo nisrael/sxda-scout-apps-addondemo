@@ -9,7 +9,6 @@ env:
   DOCKER_REGISTRY: ghcr.io
   DOCKER_IMAGE_REGISTRY: ghcr.io/${{ github.repository }}
   DOCKER_TAG_SHA: ${{ github.sha }}
-  DOCKER_TAG_REF: ${{ replace(github.ref_name, '/', '_') }}
   DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
   DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
@@ -39,6 +38,9 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set DOCKER_TAG_REF
+        run: echo "DOCKER_TAG_REF=$(echo ${GITHUB_REF#refs/*/} | sed 's/\//_/g')" >> $GITHUB_ENV
 
       - name: Build and push image except for main branch
         if: github.ref != 'refs/heads/main'
