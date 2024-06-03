@@ -48,8 +48,16 @@ jobs:
           ./mvnw install \
             -B --no-transfer-progress --file pom.xml \
             -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
+            -D docker.app.image.sha=${GITHUB_SHA::7} \
             -P exec.docker.image \
             -am -pl addondemo.app.image
+
+      - name: Format branch name for Docker tag
+        if: github.ref != 'refs/heads/main'
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          FORMATTED_BRANCH_NAME=${BRANCH_NAME//\//-}
+          echo "FORMATTED_BRANCH_NAME=$FORMATTED_BRANCH_NAME" >> $GITHUB_ENV
 
       - name: Build and push image for all branches except main
         if: github.ref != 'refs/heads/main'
@@ -57,7 +65,8 @@ jobs:
           ./mvnw install \
             -B --no-transfer-progress --file pom.xml \
             -D docker.app.image.registry=${{ env.DOCKER_IMAGE_REGISTRY }} \
-            -D docker.app.image.tag=${GITHUB_SHA::7} \
+            -D docker.app.image.tag=${{ env.FORMATTED_BRANCH_NAME }} \
+            -D docker.app.image.sha=${GITHUB_SHA::7} \
             -P exec.docker.image \
             -am -pl addondemo.app.image
 

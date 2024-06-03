@@ -21,9 +21,11 @@
         <artifactId>jib-maven-plugin</artifactId>
         <configuration>
           <to>
-            <image>${docker.app.image.registry}/app</image>
+            <!-- prevent jib to push to :latest by specifying a tag in the image -->
+            <image>${docker.app.image}</image>
+            <!-- the tags here are *additional* tags -->
             <tags>
-              <tag>${docker.app.image.tag}</tag>
+              <tag>${docker.app.image.sha}</tag>
             </tags>
           </to>
           <from>

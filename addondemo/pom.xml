@@ -21,7 +21,10 @@
     <master_plugin_jib_version>3.4.3</master_plugin_jib_version>
     <!-- build target (push) -->
     <docker.app.image.registry>localhost:5000</docker.app.image.registry> <!-- set a desired registry before using profile exec.docker.image (e.g. registry.hub.docker.com/yourusername) -->
+    <docker.app.image.name>app</docker.app.image.name>
     <docker.app.image.tag>24.1-latest</docker.app.image.tag>
+    <docker.app.image>${docker.app.image.registry}/${docker.app.image.name}:${docker.app.image.tag}</docker.app.image>
+    <docker.app.image.sha>${maven.build.timestamp}</docker.app.image.sha>
     <!-- java source image (pull) -->
     <docker.java.image>registry-1.docker.io/library/eclipse-temurin:17-jdk-jammy</docker.java.image>
     <sxda.addon.version>24.1.3</sxda.addon.version>
