@@ -42,7 +42,7 @@
     <docker.app.image.sha>${maven.build.timestamp}</docker.app.image.sha>
     <!-- java source image (pull) -->
     <docker.java.image>registry-1.docker.io/library/eclipse-temurin:21-jdk-noble</docker.java.image>
-    <sxda.addon.version>25.1.1</sxda.addon.version>
+    <sxda.addon.version>25.1.2-SNAPSHOT</sxda.addon.version>
   </properties>
 
   <modules>
@@ -189,6 +189,17 @@
       <dependency>
         <groupId>io.sxda.scout.addon</groupId>
         <artifactId>ace.ui.html</artifactId>
+        <version>${sxda.addon.version}</version>
+      </dependency>
+      <!-- CodeMirror -->
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>codemirror.client</artifactId>
+        <version>${sxda.addon.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.sxda.scout.addon</groupId>
+        <artifactId>codemirror.ui.html</artifactId>
         <version>${sxda.addon.version}</version>
       </dependency>
     </dependencies>

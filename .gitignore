@@ -166,3 +166,4 @@ test-results
 .idea
 *.iml
 pnpm-lock.yaml
+/.tool-versions

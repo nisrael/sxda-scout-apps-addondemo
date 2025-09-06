@@ -11,15 +11,16 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-import {ObjectFactory} from '@eclipse-scout/core';
+package io.sxda.scout.apps.addondemo.shared.codemirror;
 
-import * as self from './index';
+import io.sxda.scout.apps.addondemo.shared.ace.AceFormData;
+import org.eclipse.scout.rt.platform.service.IService;
+import org.eclipse.scout.rt.shared.TunnelToServer;
 
-import '@sxda/scout-addon-ace';
-import '@sxda/scout-addon-codemirror';
-import 'ace-code/esm-resolver';
-
-export default self;
-ObjectFactory.get().registerNamespace('addondemo', self);
-
-
+/**
+ * @author nisrael
+ */
+@TunnelToServer
+public interface ICodeMirrorService extends IService {
+  CodeMirrorFormData load(CodeMirrorFormData input);
+}

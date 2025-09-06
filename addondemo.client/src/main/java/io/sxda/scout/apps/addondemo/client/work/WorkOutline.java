@@ -14,6 +14,7 @@
 package io.sxda.scout.apps.addondemo.client.work;
 
 import io.sxda.scout.apps.addondemo.client.ace.AcePage;
+import io.sxda.scout.apps.addondemo.client.codemirror.CodeMirrorPage;
 import io.sxda.scout.apps.addondemo.shared.Icons;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
@@ -32,6 +33,7 @@ public class WorkOutline extends AbstractOutline {
   protected void execCreateChildPages(List<IPage<?>> pageList) {
     super.execCreateChildPages(pageList);
     pageList.add(new AcePage());
+    pageList.add(new CodeMirrorPage());
   }
 
   @Override

@@ -42,6 +42,10 @@
       <artifactId>ace.client</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.sxda.scout.addon</groupId>
+      <artifactId>codemirror.client</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.eclipse.scout.rt</groupId>
       <artifactId>org.eclipse.scout.rt.client.test</artifactId>
       <scope>test</scope>
