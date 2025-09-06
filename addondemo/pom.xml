@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.sxda.scout.apps</groupId>
     <artifactId>addondemo-root</artifactId>
-    <version>24.1.0-SNAPSHOT</version>
+    <version>25.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>addondemo</artifactId>
@@ -13,8 +13,8 @@
 
   <properties>
     <io.sxda.scout.apps.addondemo.version>${project.version}</io.sxda.scout.apps.addondemo.version>
-    <jdk.source.version>17</jdk.source.version>
-    <org.eclipse.scout.rt.version>24.1.12</org.eclipse.scout.rt.version>
+    <jdk.source.version>21</jdk.source.version>
+    <org.eclipse.scout.rt.version>25.1.14</org.eclipse.scout.rt.version>
     <master_npm_release_dependency_mapping>--mapping.0.regex=@eclipse-scout --mapping.0.version=${org.eclipse.scout.rt.version}</master_npm_release_dependency_mapping>
 
     <!-- docker image build settings -->
@@ -22,12 +22,12 @@
     <!-- build target (push) -->
     <docker.app.image.registry>localhost:5000</docker.app.image.registry> <!-- set a desired registry before using profile exec.docker.image (e.g. registry.hub.docker.com/yourusername) -->
     <docker.app.image.name>app</docker.app.image.name>
-    <docker.app.image.tag>24.1-latest</docker.app.image.tag>
+    <docker.app.image.tag>25.1-latest</docker.app.image.tag>
     <docker.app.image>${docker.app.image.registry}/${docker.app.image.name}:${docker.app.image.tag}</docker.app.image>
     <docker.app.image.sha>${maven.build.timestamp}</docker.app.image.sha>
     <!-- java source image (pull) -->
-    <docker.java.image>registry-1.docker.io/library/eclipse-temurin:17-jdk-jammy</docker.java.image>
-    <sxda.addon.version>24.1.3</sxda.addon.version>
+    <docker.java.image>registry-1.docker.io/library/eclipse-temurin:21-jdk-noble</docker.java.image>
+    <sxda.addon.version>25.1.1</sxda.addon.version>
   </properties>
 
   <modules>
@@ -178,4 +178,70 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.18.0</version>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <properties>
+            <current.year>${maven.build.timestamp}</current.year>
+          </properties>
+          <failIfMissing>true</failIfMissing>
+          <strictCheck>true</strictCheck>
+          <aggregate>true</aggregate>
+          <mapping>
+            <java>SCOUT_JAVADOC_STYLE</java>
+            <js>SCOUT_JAVADOC_STYLE</js>
+            <ts>SCOUT_JAVADOC_STYLE</ts>
+            <less>SCOUT_JAVADOC_STYLE</less>
+            <css>SCOUT_JAVADOC_STYLE</css>
+          </mapping>
+          <licenseSets>
+            <licenseSet>
+              <header>license_files/copyright.txt</header>
+              <headerDefinitions>
+                <headerDefinition>license_files/scoutLicenceHeaderJava.xml
+                </headerDefinition>
+              </headerDefinitions>
+              <useDefaultExcludes>false</useDefaultExcludes>
+              <includes>
+                <include>**/pom.xml</include>
+                <include>**/*.properties</include>
+                <include>**/*.java</include>
+                <include>**/*.js</include>
+                <include>**/*.ts</include>
+                <include>**/*.css</include>
+                <include>**/*.less</include>
+                <include>**/*.xml</include>
+                <include>**/*.xsd</include>
+              </includes>
+              <excludes>
+                <exclude>.idea/**</exclude>
+                <exclude>**/license_files/**</exclude>
+                <exclude>**/version.ts</exclude>
+                <exclude>**/target/**</exclude>
+                <exclude>**/node_modules/**</exclude>
+                <exclude>**/test-results/**</exclude>
+                <exclude>**/dist/**</exclude>
+                <exclude>**/.*</exclude>
+                <exclude>**/.settings/**</exclude>
+                <exclude>**/release.properties</exclude>
+                <exclude>**/pom.xml.releaseBackup</exclude>
+                <exclude>**/*.sh</exclude>
+                <exclude>.run/**</exclude>
+                <exclude>**/src/main/resources/WebContent/**</exclude>
+                <exclude>**/src/main/ws-stub/**</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
