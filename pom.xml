@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
 
-    Copyright (c) 2010-20250906-180705 BSI Business Systems Integration AG
-    Copyright (c) 2023-20250906-180705 Nils Israel
+    Copyright (c) 2010-2025 BSI Business Systems Integration AG
+    Copyright (c) 2023-2025 Nils Israel
 
     This program is an extension of the original work from the Eclipse Scout Project,
     available at https://www.eclipse.org/scout/.
@@ -14,7 +14,8 @@
     SPDX-License-Identifier: EPL-2.0
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.scout</groupId>
@@ -26,6 +27,9 @@
   <artifactId>addondemo-root</artifactId>
   <version>25.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <properties>
+    <sxda.build.skip-license-validation>false</sxda.build.skip-license-validation>
+  </properties>
   <modules>
     <module>addondemo</module>
   </modules>
@@ -35,6 +39,7 @@
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
+          <skip>${sxda.build.skip-license-validation}</skip>
           <properties>
             <current.year>${maven.build.timestamp}</current.year>
           </properties>
@@ -90,4 +95,13 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>sxda.build.license-validation</id>
+      <properties>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <sxda.build.skip-license-validation>false</sxda.build.skip-license-validation>
+      </properties>
+    </profile>
+  </profiles>
 </project>
