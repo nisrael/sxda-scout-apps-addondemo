@@ -23,11 +23,14 @@ jobs:
           java-version: 21
           distribution: temurin
           cache: maven
-          server-id: github-sxda-scout-addon
-          server-username: nisrael
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+          server-id: 'github-sxda-scout-addon'
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
 
       - name: Build zip with Maven and run tests
+        env:
+          MAVEN_USERNAME: 'nisrael'
+          MAVEN_PASSWORD: ${{ secrets.READ_REGISTRY_TOKEN }}
         run: |
           ./mvnw verify \
             -B --fail-at-end --no-transfer-progress --file pom.xml
