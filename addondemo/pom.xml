@@ -66,7 +66,7 @@
       <url>https://repo.maven.apache.org/maven2</url>
     </repository>
     <repository>
-      <id>github</id>
+      <id>github-sxda-scout-addon</id>
       <url>https://maven.pkg.github.com/nisrael/sxda-scout-addon/</url>
       <snapshots>
         <enabled>true</enabled>

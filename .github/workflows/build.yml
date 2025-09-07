@@ -20,9 +20,12 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          java-version: 21
+          distribution: temurin
           cache: maven
+          server-id: github-sxda-scout-addon
+          server-username: nisrael
+          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build zip with Maven and run tests
         run: |
