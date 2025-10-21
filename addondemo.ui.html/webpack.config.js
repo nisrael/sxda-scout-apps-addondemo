@@ -25,5 +25,8 @@ module.exports = (env, args) => {
     'addondemo-theme-dark': './src/main/js/addondemo-theme-dark.less'
   };
 
+  // Add Monaco editor webpack plugin with default configuration
+  require('@sxda/scout-addon-monaco/webpack-monaco')(config);
+
   return config;
 };

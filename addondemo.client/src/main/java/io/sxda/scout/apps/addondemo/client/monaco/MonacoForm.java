@@ -11,21 +11,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package io.sxda.scout.apps.addondemo.client.ace;
+package io.sxda.scout.apps.addondemo.client.monaco;
 
-import io.sxda.scout.addon.ace.client.acefield.AbstractAceField;
-import io.sxda.scout.addon.ace.client.acefield.AceMode;
-import io.sxda.scout.addon.ace.client.acefield.AceModeLookupCall;
-import io.sxda.scout.addon.ace.client.acefield.AceTheme;
-import io.sxda.scout.addon.ace.client.acefield.AceThemeLookupCall;
-import io.sxda.scout.apps.addondemo.shared.ace.AceFormData;
-import io.sxda.scout.apps.addondemo.shared.ace.IAceService;
+import io.sxda.scout.addon.monaco.client.monacofield.AbstractMonacoField;
+import io.sxda.scout.apps.addondemo.shared.monaco.IMonacoService;
+import io.sxda.scout.apps.addondemo.shared.monaco.MonacoFormData;
 import org.eclipse.scout.rt.client.dto.FormData;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.booleanfield.AbstractBooleanField;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
+import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
@@ -37,15 +34,15 @@ import org.eclipse.scout.rt.shared.AbstractIcons;
 import org.eclipse.scout.rt.shared.services.lookup.ILookupCall;
 
 /**
- * Ace demonstration form with comprehensive property configuration.
- * This form showcases all available Ace field properties organized in tabs.
+ * Monaco demonstration form with comprehensive property configuration.
+ * This form showcases all available Monaco field properties organized in tabs.
  *
  * @author nisrael
  */
-@FormData(value = AceFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
-public class AceForm extends AbstractForm {
+@FormData(value = MonacoFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
+public class MonacoForm extends AbstractForm {
 
-  public AceForm() {
+  public MonacoForm() {
     setHandler(new ViewHandler());
   }
 
@@ -68,8 +65,8 @@ public class AceForm extends AbstractForm {
     return getFieldByClass(MainBox.class);
   }
 
-  public MainBox.DetailBox.AceField getAceField() {
-    return getFieldByClass(MainBox.DetailBox.AceField.class);
+  public MainBox.DetailBox.MonacoField getMonacoField() {
+    return getFieldByClass(MainBox.DetailBox.MonacoField.class);
   }
 
   @Order(1000)
@@ -84,7 +81,7 @@ public class AceForm extends AbstractForm {
       }
 
       @Order(1000)
-      public class AceField extends AbstractAceField {
+      public class MonacoField extends AbstractMonacoField {
 
         @Override
         protected boolean getConfiguredLabelVisible() {
@@ -112,38 +109,73 @@ public class AceForm extends AbstractForm {
         }
 
         @Override
-        protected boolean getConfiguredShowPrintMargin() {
-          return true;
-        }
-
-        @Override
-        protected int getConfiguredTabSize() {
-          return 2;
-        }
-
-        @Override
-        protected boolean getConfiguredHighlightActiveLine() {
-          return true;
-        }
-
-        @Override
-        protected boolean getConfiguredUseSoftTabs() {
-          return true;
-        }
-
-        @Override
-        protected boolean getConfiguredUseWrapMode() {
-          return false;
+        protected String getConfiguredLanguage() {
+          return "javascript";
         }
 
         @Override
         protected String getConfiguredTheme() {
-          return AceTheme.TWILIGHT.getConfigTerm();
+          return "vs-dark";
         }
 
         @Override
-        protected String getConfiguredAceMode() {
-          return AceMode.JAVA.getConfigTerm();
+        protected boolean getConfiguredLineNumbers() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredMinimap() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredWordWrap() {
+          return false;
+        }
+
+        @Override
+        protected int getConfiguredFontSize() {
+          return 14;
+        }
+
+        @Override
+        protected int getConfiguredTabSize() {
+          return 4;
+        }
+
+        @Override
+        protected boolean getConfiguredInsertSpaces() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredAutomaticLayout() {
+          return true;
+        }
+
+        @Override
+        protected boolean getConfiguredFolding() {
+          return true;
+        }
+
+        @Override
+        protected String getConfiguredRenderWhitespace() {
+          return "none";
+        }
+
+        @Override
+        protected boolean getConfiguredScrollBeyondLastLine() {
+          return false;
+        }
+
+        @Override
+        protected boolean getConfiguredFormatOnPaste() {
+          return false;
+        }
+
+        @Override
+        protected boolean getConfiguredFormatOnType() {
+          return false;
         }
 
         @Override
@@ -166,7 +198,7 @@ public class AceForm extends AbstractForm {
 
         @Override
         protected String getConfiguredLabel() {
-          return TEXTS.get("sxda.aceForm.propertiesTab.label");
+          return TEXTS.get("sxda.monacoForm.propertiesTab.label");
         }
 
         @Order(1000)
@@ -186,17 +218,17 @@ public class AceForm extends AbstractForm {
           public class EnabledField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.enabledField.label");
+              return TEXTS.get("sxda.monacoForm.enabledField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().isEnabled());
+              setValue(getMonacoField().isEnabled());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setEnabled(getValue());
+              getMonacoField().setEnabled(getValue());
             }
           }
 
@@ -204,165 +236,213 @@ public class AceForm extends AbstractForm {
           public class UpdateDisplayTextOnModifyField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.updateDisplayTextOnModifyField.label");
+              return TEXTS.get("sxda.monacoForm.updateDisplayTextOnModifyField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().isUpdateDisplayTextOnModify());
+              setValue(getMonacoField().isUpdateDisplayTextOnModify());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setUpdateDisplayTextOnModify(getValue());
+              getMonacoField().setUpdateDisplayTextOnModify(getValue());
             }
           }
 
           @Order(3000)
-          public class ThemeField extends AbstractSmartField<String> {
+          public class LanguageField extends AbstractSmartField<String> {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.themeField.label");
+              return TEXTS.get("sxda.monacoForm.languageField.label");
             }
 
             @Override
             protected Class<? extends ILookupCall<String>> getConfiguredLookupCall() {
-              return AceThemeLookupCall.class;
+              return MonacoLanguageLookupCall.class;
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getTheme());
+              setValue(getMonacoField().getLanguage());
             }
 
             @Override
             protected void execChangedValue() {
               if (getValue() != null) {
-                getAceField().setTheme(getValue());
+                getMonacoField().setLanguage(getValue());
               }
             }
           }
 
           @Order(4000)
-          public class ModeField extends AbstractSmartField<String> {
+          public class ThemeField extends AbstractSmartField<String> {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.modeField.label");
+              return TEXTS.get("sxda.monacoForm.themeField.label");
             }
 
             @Override
             protected Class<? extends ILookupCall<String>> getConfiguredLookupCall() {
-              return AceModeLookupCall.class;
+              return MonacoThemeLookupCall.class;
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getAceMode());
+              setValue(getMonacoField().getTheme());
             }
 
             @Override
             protected void execChangedValue() {
               if (getValue() != null) {
-                getAceField().setAceMode(getValue());
+                getMonacoField().setTheme(getValue());
               }
             }
           }
 
           @Order(5000)
-          public class SoftTabsField extends AbstractBooleanField {
+          public class LineNumbersField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.softTabsField.label");
+              return TEXTS.get("sxda.monacoForm.lineNumbersField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getUseSoftTabs());
+              setValue(getMonacoField().getLineNumbers());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setUseSoftTabs(getValue());
+              getMonacoField().setLineNumbers(getValue());
             }
           }
 
           @Order(6000)
-          public class WrapModeField extends AbstractBooleanField {
+          public class MinimapField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.wrapModeField.label");
+              return TEXTS.get("sxda.monacoForm.minimapField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getUseWrapMode());
+              setValue(getMonacoField().getMinimap());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setUseWrapMode(getValue());
+              if (getValue() != null) {
+                getMonacoField().setMinimap(getValue());
+              }
             }
           }
 
           @Order(7000)
-          public class ShowPrintMarginField extends AbstractBooleanField {
+          public class WordWrapField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.showPrintMarginField.label");
+              return TEXTS.get("sxda.monacoForm.wordWrapField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getShowPrintMargin());
+              setValue(getMonacoField().getWordWrap());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setShowPrintMargin(getValue());
+              if (getValue() != null) {
+                getMonacoField().setWordWrap(getValue());
+              }
             }
           }
 
           @Order(8000)
-          public class HighlightActiveLineField extends AbstractBooleanField {
+          public class FoldingField extends AbstractBooleanField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.highlightActiveLineField.label");
+              return TEXTS.get("sxda.monacoForm.foldingField.label");
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getHighlightActiveLine());
+              setValue(getMonacoField().getFolding());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setHighlightActiveLine(getValue());
+              if (getValue() != null) {
+                getMonacoField().setFolding(getValue());
+              }
             }
           }
 
           @Order(9000)
-          public class SelectOnSetValueField extends AbstractBooleanField {
+          public class FontSizeField extends AbstractIntegerField {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.selectOnSetValueField.label");
+              return TEXTS.get("sxda.monacoForm.fontSizeField.label");
+            }
+
+            @Override
+            protected Integer getConfiguredMinValue() {
+              return 8;
+            }
+
+            @Override
+            protected Integer getConfiguredMaxValue() {
+              return 32;
             }
 
             @Override
             protected void execInitField() {
-              setValue(getAceField().getSelectOnSetValue());
+              setValue(getMonacoField().getFontSize());
             }
 
             @Override
             protected void execChangedValue() {
-              getAceField().setSelectOnSetValue(getValue());
+              if (getValue() != null) {
+                getMonacoField().setFontSize(getValue());
+              }
             }
           }
 
           @Order(10000)
+          public class TabSizeField extends AbstractIntegerField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.monacoForm.tabSizeField.label");
+            }
+
+            @Override
+            protected Integer getConfiguredMinValue() {
+              return 1;
+            }
+
+            @Override
+            protected Integer getConfiguredMaxValue() {
+              return 8;
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getMonacoField().getTabSize());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              if (getValue() != null) {
+                getMonacoField().setTabSize(getValue());
+              }
+            }
+          }
+
+          @Order(11000)
           public class SetValueFieldBox extends AbstractSequenceBox {
             @Override
             protected String getConfiguredLabel() {
-              return TEXTS.get("sxda.aceForm.setValueFieldBox.label");
+              return TEXTS.get("sxda.monacoForm.setValueFieldBox.label");
             }
 
             @Override
@@ -387,7 +467,7 @@ public class AceForm extends AbstractForm {
             public class SetValueButton extends AbstractButton {
               @Override
               protected String getConfiguredLabel() {
-                return TEXTS.get("sxda.aceForm.setValueButton.label");
+                return TEXTS.get("sxda.monacoForm.setValueButton.label");
               }
 
               @Override
@@ -399,7 +479,7 @@ public class AceForm extends AbstractForm {
               protected void execClickAction() {
                 String value = getSetValueField().getValue();
                 if (value != null) {
-                  getAceField().setValue(value);
+                  getMonacoField().setValue(value);
                 }
               }
             }
@@ -417,8 +497,8 @@ public class AceForm extends AbstractForm {
 
     @Override
     protected void execLoad() {
-      IAceService service = BEANS.get(IAceService.class);
-      AceFormData formData = new AceFormData();
+      IMonacoService service = BEANS.get(IMonacoService.class);
+      MonacoFormData formData = new MonacoFormData();
       exportFormData(formData);
       formData = service.load(formData);
       importFormData(formData);

@@ -31,7 +31,7 @@ https://github.com/nisrael/sxda-scout-apps-addondemo
 
 This project leverages the following third party content:
 
-Eclipse Scout project (23.2)
+Eclipse Scout project (25.2)
 
 * Project home: https://projects.eclipse.org/projects/technology.scout
 * License: Eclipse Public License 2.0 (EPL-2.0)
@@ -46,8 +46,26 @@ Eclipse Scout project (23.2)
 A subset of the third-party content used from the Eclipse Scout
 project, as referenced by them:
 
-https://github.com/eclipse-scout/scout.rt/blob/releases/23.2/NOTICE.md
+https://github.com/eclipse-scout/scout.rt/blob/releases/25.2/NOTICE.md
 
 == Additional third-party content
 
 This project leverages the following third party content.
+
+Ace (Ajax.org Cloud9 Editor)
+
+* License: BSD-3-Clause
+* Project home: https://ace.c9.io/
+* Source: https://github.com/ajaxorg/ace and https://github.com/ajaxorg/ace-builds
+
+CodeMirror (Extensible Code Editor)
+
+* License: MIT License
+* Project home: https://codemirror.net
+* Source: https://github.com/codemirror/dev/
+
+Monaco (A browser based code editor)
+
+* License: MIT License
+* Project home: https://microsoft.github.io/monaco-editor/
+* Source: https://github.com/microsoft/monaco-editor

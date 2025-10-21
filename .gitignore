@@ -167,3 +167,6 @@ test-results
 *.iml
 pnpm-lock.yaml
 /.tool-versions
+/addondemo.server/pgdata/
+/.log*
+/addondemo.server/postgresql.yaml

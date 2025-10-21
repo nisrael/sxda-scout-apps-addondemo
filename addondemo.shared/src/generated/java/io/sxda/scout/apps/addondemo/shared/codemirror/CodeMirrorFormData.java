@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
+ *
+ * This program is an extension of the original work from the Eclipse Scout Project,
+ * available at https://www.eclipse.org/scout/.
+ *
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 package io.sxda.scout.apps.addondemo.shared.codemirror;
 
 import jakarta.annotation.Generated;
@@ -12,19 +25,267 @@ import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 public class CodeMirrorFormData extends AbstractFormData {
     private static final long serialVersionUID = 1L;
 
+    public AllowMultipleSelections getAllowMultipleSelections() {
+        return getFieldByClass(AllowMultipleSelections.class);
+    }
+
+    public Autocompletion getAutocompletion() {
+        return getFieldByClass(Autocompletion.class);
+    }
+
+    public BracketMatching getBracketMatching() {
+        return getFieldByClass(BracketMatching.class);
+    }
+
+    public CloseBrackets getCloseBrackets() {
+        return getFieldByClass(CloseBrackets.class);
+    }
+
+    public CloseBracketsKeymap getCloseBracketsKeymap() {
+        return getFieldByClass(CloseBracketsKeymap.class);
+    }
+
     public CodeMirror getCodeMirror() {
         return getFieldByClass(CodeMirror.class);
     }
 
-    public Contents getContents() {
-        return getFieldByClass(Contents.class);
+    public CompletionKeymap getCompletionKeymap() {
+        return getFieldByClass(CompletionKeymap.class);
+    }
+
+    public CrosshairCursor getCrosshairCursor() {
+        return getFieldByClass(CrosshairCursor.class);
+    }
+
+    public DefaultKeymap getDefaultKeymap() {
+        return getFieldByClass(DefaultKeymap.class);
+    }
+
+    public DrawSelection getDrawSelection() {
+        return getFieldByClass(DrawSelection.class);
+    }
+
+    public DropCursor getDropCursor() {
+        return getFieldByClass(DropCursor.class);
+    }
+
+    public Enabled getEnabled() {
+        return getFieldByClass(Enabled.class);
+    }
+
+    public FoldGutter getFoldGutter() {
+        return getFieldByClass(FoldGutter.class);
+    }
+
+    public FoldKeymap getFoldKeymap() {
+        return getFieldByClass(FoldKeymap.class);
+    }
+
+    public HighlightActiveLine getHighlightActiveLine() {
+        return getFieldByClass(HighlightActiveLine.class);
+    }
+
+    public HighlightActiveLineGutter getHighlightActiveLineGutter() {
+        return getFieldByClass(HighlightActiveLineGutter.class);
+    }
+
+    public HighlightSelectionMatches getHighlightSelectionMatches() {
+        return getFieldByClass(HighlightSelectionMatches.class);
+    }
+
+    public HighlightSpecialChars getHighlightSpecialChars() {
+        return getFieldByClass(HighlightSpecialChars.class);
+    }
+
+    public History getHistory() {
+        return getFieldByClass(History.class);
+    }
+
+    public HistoryKeymap getHistoryKeymap() {
+        return getFieldByClass(HistoryKeymap.class);
+    }
+
+    public IndentOnInput getIndentOnInput() {
+        return getFieldByClass(IndentOnInput.class);
+    }
+
+    public IndentWithTabKeymap getIndentWithTabKeymap() {
+        return getFieldByClass(IndentWithTabKeymap.class);
+    }
+
+    public Language getLanguage() {
+        return getFieldByClass(Language.class);
+    }
+
+    public LineNumbers getLineNumbers() {
+        return getFieldByClass(LineNumbers.class);
+    }
+
+    public LineWrapping getLineWrapping() {
+        return getFieldByClass(LineWrapping.class);
+    }
+
+    public LintKeymap getLintKeymap() {
+        return getFieldByClass(LintKeymap.class);
+    }
+
+    public RectangularSelection getRectangularSelection() {
+        return getFieldByClass(RectangularSelection.class);
+    }
+
+    public SearchKeymap getSearchKeymap() {
+        return getFieldByClass(SearchKeymap.class);
+    }
+
+    public SetValue getSetValue() {
+        return getFieldByClass(SetValue.class);
+    }
+
+    public SyntaxHighlighting getSyntaxHighlighting() {
+        return getFieldByClass(SyntaxHighlighting.class);
+    }
+
+    public TabSize getTabSize() {
+        return getFieldByClass(TabSize.class);
+    }
+
+    public Theme getTheme() {
+        return getFieldByClass(Theme.class);
+    }
+
+    public UpdateDisplayTextOnModify getUpdateDisplayTextOnModify() {
+        return getFieldByClass(UpdateDisplayTextOnModify.class);
+    }
+
+    public static class AllowMultipleSelections extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Autocompletion extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class BracketMatching extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class CloseBrackets extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class CloseBracketsKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
     }
 
     public static class CodeMirror extends AbstractValueFieldData<String> {
         private static final long serialVersionUID = 1L;
     }
 
-    public static class Contents extends AbstractValueFieldData<String> {
+    public static class CompletionKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class CrosshairCursor extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class DefaultKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class DrawSelection extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class DropCursor extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Enabled extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class FoldGutter extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class FoldKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HighlightActiveLine extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HighlightActiveLineGutter extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HighlightSelectionMatches extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HighlightSpecialChars extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class History extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HistoryKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class IndentOnInput extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class IndentWithTabKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Language extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class LineNumbers extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class LineWrapping extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class LintKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class RectangularSelection extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SearchKeymap extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SetValue extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SyntaxHighlighting extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class TabSize extends AbstractValueFieldData<Integer> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Theme extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class UpdateDisplayTextOnModify extends AbstractValueFieldData<Boolean> {
         private static final long serialVersionUID = 1L;
     }
 }

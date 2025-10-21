@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
+ *
+ * This program is an extension of the original work from the Eclipse Scout Project,
+ * available at https://www.eclipse.org/scout/.
+ *
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 package io.sxda.scout.apps.addondemo.shared.ace;
 
 import jakarta.annotation.Generated;
@@ -16,15 +29,87 @@ public class AceFormData extends AbstractFormData {
         return getFieldByClass(Ace.class);
     }
 
-    public Contents getContents() {
-        return getFieldByClass(Contents.class);
+    public Enabled getEnabled() {
+        return getFieldByClass(Enabled.class);
+    }
+
+    public HighlightActiveLine getHighlightActiveLine() {
+        return getFieldByClass(HighlightActiveLine.class);
+    }
+
+    public Mode getMode() {
+        return getFieldByClass(Mode.class);
+    }
+
+    public SelectOnSetValue getSelectOnSetValue() {
+        return getFieldByClass(SelectOnSetValue.class);
+    }
+
+    public SetValue getSetValue() {
+        return getFieldByClass(SetValue.class);
+    }
+
+    public ShowPrintMargin getShowPrintMargin() {
+        return getFieldByClass(ShowPrintMargin.class);
+    }
+
+    public SoftTabs getSoftTabs() {
+        return getFieldByClass(SoftTabs.class);
+    }
+
+    public Theme getTheme() {
+        return getFieldByClass(Theme.class);
+    }
+
+    public UpdateDisplayTextOnModify getUpdateDisplayTextOnModify() {
+        return getFieldByClass(UpdateDisplayTextOnModify.class);
+    }
+
+    public WrapMode getWrapMode() {
+        return getFieldByClass(WrapMode.class);
     }
 
     public static class Ace extends AbstractValueFieldData<String> {
         private static final long serialVersionUID = 1L;
     }
 
-    public static class Contents extends AbstractValueFieldData<String> {
+    public static class Enabled extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class HighlightActiveLine extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Mode extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SelectOnSetValue extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SetValue extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class ShowPrintMargin extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class SoftTabs extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class Theme extends AbstractValueFieldData<String> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class UpdateDisplayTextOnModify extends AbstractValueFieldData<Boolean> {
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static class WrapMode extends AbstractValueFieldData<Boolean> {
         private static final long serialVersionUID = 1L;
     }
 }

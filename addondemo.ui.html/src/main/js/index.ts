@@ -17,6 +17,7 @@ import * as self from './index';
 
 import '@sxda/scout-addon-ace';
 import '@sxda/scout-addon-codemirror';
+import '@sxda/scout-addon-monaco';
 import 'ace-code/esm-resolver';
 
 export default self;
