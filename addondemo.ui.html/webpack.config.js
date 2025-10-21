@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-20250906-180705 BSI Business Systems Integration AG
- * Copyright (c) 2023-20250906-180705 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -24,6 +24,9 @@ module.exports = (env, args) => {
     'addondemo-theme': './src/main/js/addondemo-theme.less',
     'addondemo-theme-dark': './src/main/js/addondemo-theme-dark.less'
   };
+
+  // Add Monaco editor webpack plugin with default configuration
+  require('@sxda/scout-addon-monaco/webpack-monaco')(config);
 
   return config;
 };

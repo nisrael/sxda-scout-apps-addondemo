@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-20250906-180705 BSI Business Systems Integration AG
- * Copyright (c) 2023-20250906-180705 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -13,26 +13,33 @@
  */
 package io.sxda.scout.apps.addondemo.client.ace;
 
-import io.sxda.scout.addon.ace.client.acefield.*;
+import io.sxda.scout.addon.ace.client.acefield.AbstractAceField;
+import io.sxda.scout.addon.ace.client.acefield.AceMode;
+import io.sxda.scout.addon.ace.client.acefield.AceModeLookupCall;
+import io.sxda.scout.addon.ace.client.acefield.AceTheme;
+import io.sxda.scout.addon.ace.client.acefield.AceThemeLookupCall;
 import io.sxda.scout.apps.addondemo.shared.ace.AceFormData;
 import io.sxda.scout.apps.addondemo.shared.ace.IAceService;
 import org.eclipse.scout.rt.client.dto.FormData;
-import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
-import org.eclipse.scout.rt.client.ui.form.fields.IValueField;
+import org.eclipse.scout.rt.client.ui.form.fields.booleanfield.AbstractBooleanField;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
+import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
+import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
+import org.eclipse.scout.rt.client.ui.form.fields.tabbox.AbstractTabBox;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.Order;
 import org.eclipse.scout.rt.platform.text.TEXTS;
 import org.eclipse.scout.rt.shared.AbstractIcons;
-import org.eclipse.scout.rt.shared.services.lookup.ILookupRow;
-
-import java.util.List;
+import org.eclipse.scout.rt.shared.services.lookup.ILookupCall;
 
 /**
+ * Ace demonstration form with comprehensive property configuration.
+ * This form showcases all available Ace field properties organized in tabs.
+ *
  * @author nisrael
  */
 @FormData(value = AceFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
@@ -61,143 +68,37 @@ public class AceForm extends AbstractForm {
     return getFieldByClass(MainBox.class);
   }
 
-  public MainBox.TopBox getTopBox() {
-    return getFieldByClass(MainBox.TopBox.class);
-  }
-
-  public MainBox.TopBox.AceField getAceField() {
-    return getFieldByClass(MainBox.TopBox.AceField.class);
-  }
-
-  public MainBox.TopBox.ContentsField getContentsField() {
-    return getFieldByClass(MainBox.TopBox.ContentsField.class);
-  }
-
-  public MainBox.ToggleEnabledButton getToggleEnabledButton() {
-    return getFieldByClass(MainBox.ToggleEnabledButton.class);
-  }
-
-  public MainBox.ToggleHighlightActiveLineButton getToggleHighlightActiveLineButton() {
-    return getFieldByClass(MainBox.ToggleHighlightActiveLineButton.class);
+  public MainBox.DetailBox.AceField getAceField() {
+    return getFieldByClass(MainBox.DetailBox.AceField.class);
   }
 
   @Order(1000)
   public class MainBox extends AbstractGroupBox {
 
     @Order(1000)
-    public class ToggleEnabledButton extends AbstractButton {
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("sxda.aceForm.toggleEnabledButton.label");
-      }
-
-      @Override
-      protected void execClickAction() {
-        getAceField().setEnabled(!getAceField().isEnabled());
-      }
-    }
-
-    @Order(2000)
-    public class ToggleHighlightActiveLineButton extends AbstractButton {
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("sxda.aceForm.toggleHighlightActiveLineButton.label");
-      }
-
-      @Override
-      protected void execClickAction() {
-        getAceField().setHighlightActiveLine(!getAceField().getHighlightActiveLine());
-      }
-    }
-
-    @Order(3000)
-    public class ToggleShowPrintMarginButton extends AbstractButton {
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("sxda.aceForm.toggleShowPrintMarginButton.label");
-      }
-
-      @Override
-      protected void execClickAction() {
-        getAceField().setShowPrintMargin(!getAceField().getShowPrintMargin());
-      }
-    }
-
-    @Order(4000)
-    public class ThemeButton extends AbstractMenu {
-      @Override
-      protected String getConfiguredText() {
-        return TEXTS.get("sxda.aceForm.themeButton.label");
-      }
-
-      @Override
-      protected void execInitAction() {
-        AceThemeLookupCall lookupCall = new AceThemeLookupCall();
-        List<? extends ILookupRow<String>> rows = lookupCall.getDataByAll();
-        for (ILookupRow<String> row : rows) {
-          AbstractMenu menu = new AbstractMenu() {
-            @Override
-            protected String getConfiguredText() {
-              return row.getText();
-            }
-
-            @Override
-            protected void execAction() {
-              getAceField().setTheme(row.getKey());
-            }
-          };
-          getMenuByClass(ThemeButton.class).addChildAction(menu);
-        }
-      }
-    }
-
-    @Order(4500)
-    public class ModeButton extends AbstractMenu {
-      @Override
-      protected String getConfiguredText() {
-        return TEXTS.get("sxda.aceForm.modeButton.label");
-      }
-
-      @Override
-      protected void execInitAction() {
-        AceModeLookupCall lookupCall = new AceModeLookupCall();
-        List<? extends ILookupRow<String>> rows = lookupCall.getDataByAll();
-        for (ILookupRow<String> row : rows) {
-          AbstractMenu menu = new AbstractMenu() {
-            @Override
-            protected String getConfiguredText() {
-              return row.getText();
-            }
-
-            @Override
-            protected void execAction() {
-              getAceField().setAceMode(row.getKey());
-            }
-          };
-          getMenuByClass(ModeButton.class).addChildAction(menu);
-        }
-      }
-    }
-
-    @Order(1000)
-    public class TopBox extends AbstractGroupBox {
+    public class DetailBox extends AbstractGroupBox {
 
       @Override
       protected int getConfiguredGridColumnCount() {
         return 1;
       }
 
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("sxda.aceForm.title");
-      }
-
-
       @Order(1000)
       public class AceField extends AbstractAceField {
+
         @Override
-        protected String getConfiguredLabel() {
-          return TEXTS.get("sxda.aceForm.aceField.label");
+        protected boolean getConfiguredLabelVisible() {
+          return false;
+        }
+
+        @Override
+        protected boolean getConfiguredStatusVisible() {
+          return false;
+        }
+
+        @Override
+        protected int getConfiguredGridH() {
+          return 10;
         }
 
         @Override
@@ -207,7 +108,7 @@ public class AceForm extends AbstractForm {
 
         @Override
         protected double getConfiguredGridWeightY() {
-          return 0.75;
+          return 1.0;
         }
 
         @Override
@@ -250,49 +151,262 @@ public class AceForm extends AbstractForm {
           return true;
         }
       }
+    }
 
-      public class ContentsField extends AbstractStringField {
+    @Order(2000)
+    public class ConfigurationBox extends AbstractTabBox {
+
+      @Override
+      protected String getConfiguredCssClass() {
+        return "jswidgets-configuration";
+      }
+
+      @Order(1000)
+      public class PropertiesTab extends AbstractGroupBox {
+
         @Override
         protected String getConfiguredLabel() {
-          return TEXTS.get("sxda.aceForm.contentsField.label");
+          return TEXTS.get("sxda.aceForm.propertiesTab.label");
         }
 
-        @Override
-        protected boolean getConfiguredFillVertical() {
-          return true;
-        }
+        @Order(1000)
+        public class PropertiesBox extends AbstractGroupBox {
 
-        @Override
-        protected double getConfiguredGridWeightY() {
-          return 0.25;
-        }
-
-        @Override
-        protected boolean getConfiguredEnabled() {
-          return false;
-        }
-
-        @Override
-        protected Class<? extends IValueField<?>> getConfiguredMasterField() {
-          return AceField.class;
-        }
-
-        @Override
-        protected boolean getConfiguredMultilineText() {
-          return true;
-        }
-
-        @Override
-        protected void execChangedMasterValue(Object newMasterValue) {
-          if (newMasterValue instanceof String stringValue) {
-            setValue(stringValue);
+          @Override
+          protected boolean getConfiguredBorderVisible() {
+            return false;
           }
-        }
 
-        @Override
-        protected void execInitField() {
-          if (getMasterField().getValue() instanceof String stringValue) {
-            setValue(stringValue);
+          @Override
+          protected int getConfiguredGridColumnCount() {
+            return 2;
+          }
+
+          @Order(1000)
+          public class EnabledField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.enabledField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().isEnabled());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setEnabled(getValue());
+            }
+          }
+
+          @Order(2000)
+          public class UpdateDisplayTextOnModifyField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.updateDisplayTextOnModifyField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().isUpdateDisplayTextOnModify());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setUpdateDisplayTextOnModify(getValue());
+            }
+          }
+
+          @Order(3000)
+          public class ThemeField extends AbstractSmartField<String> {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.themeField.label");
+            }
+
+            @Override
+            protected Class<? extends ILookupCall<String>> getConfiguredLookupCall() {
+              return AceThemeLookupCall.class;
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getTheme());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              if (getValue() != null) {
+                getAceField().setTheme(getValue());
+              }
+            }
+          }
+
+          @Order(4000)
+          public class ModeField extends AbstractSmartField<String> {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.modeField.label");
+            }
+
+            @Override
+            protected Class<? extends ILookupCall<String>> getConfiguredLookupCall() {
+              return AceModeLookupCall.class;
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getAceMode());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              if (getValue() != null) {
+                getAceField().setAceMode(getValue());
+              }
+            }
+          }
+
+          @Order(5000)
+          public class SoftTabsField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.softTabsField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getUseSoftTabs());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setUseSoftTabs(getValue());
+            }
+          }
+
+          @Order(6000)
+          public class WrapModeField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.wrapModeField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getUseWrapMode());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setUseWrapMode(getValue());
+            }
+          }
+
+          @Order(7000)
+          public class ShowPrintMarginField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.showPrintMarginField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getShowPrintMargin());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setShowPrintMargin(getValue());
+            }
+          }
+
+          @Order(8000)
+          public class HighlightActiveLineField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.highlightActiveLineField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getHighlightActiveLine());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setHighlightActiveLine(getValue());
+            }
+          }
+
+          @Order(9000)
+          public class SelectOnSetValueField extends AbstractBooleanField {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.selectOnSetValueField.label");
+            }
+
+            @Override
+            protected void execInitField() {
+              setValue(getAceField().getSelectOnSetValue());
+            }
+
+            @Override
+            protected void execChangedValue() {
+              getAceField().setSelectOnSetValue(getValue());
+            }
+          }
+
+          @Order(10000)
+          public class SetValueFieldBox extends AbstractSequenceBox {
+            @Override
+            protected String getConfiguredLabel() {
+              return TEXTS.get("sxda.aceForm.setValueFieldBox.label");
+            }
+
+            @Override
+            protected int getConfiguredGridW() {
+              return 2;
+            }
+
+            @Order(1000)
+            public class SetValueField extends AbstractStringField {
+              @Override
+              protected boolean getConfiguredLabelVisible() {
+                return false;
+              }
+
+              @Override
+              protected int getConfiguredGridW() {
+                return FULL_WIDTH;
+              }
+            }
+
+            @Order(2000)
+            public class SetValueButton extends AbstractButton {
+              @Override
+              protected String getConfiguredLabel() {
+                return TEXTS.get("sxda.aceForm.setValueButton.label");
+              }
+
+              @Override
+              protected int getConfiguredDisplayStyle() {
+                return DISPLAY_STYLE_DEFAULT;
+              }
+
+              @Override
+              protected void execClickAction() {
+                String value = getSetValueField().getValue();
+                if (value != null) {
+                  getAceField().setValue(value);
+                }
+              }
+            }
+
+            public SetValueField getSetValueField() {
+              return getFieldByClass(SetValueField.class);
+            }
           }
         }
       }

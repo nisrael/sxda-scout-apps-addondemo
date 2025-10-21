@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2010-20250906-180705 BSI Business Systems Integration AG
- * Copyright (c) 2023-20250906-180705 Nils Israel
+ * Copyright (c) 2010-2025 BSI Business Systems Integration AG
+ * Copyright (c) 2023-2025 Nils Israel
  *
  * This program is an extension of the original work from the Eclipse Scout Project,
  * available at https://www.eclipse.org/scout/.
@@ -14,6 +14,8 @@
 package io.sxda.scout.apps.addondemo.client.work;
 
 import io.sxda.scout.apps.addondemo.client.ace.AcePage;
+import io.sxda.scout.apps.addondemo.client.codemirror.CodeMirrorPage;
+import io.sxda.scout.apps.addondemo.client.monaco.MonacoPage;
 import io.sxda.scout.apps.addondemo.shared.Icons;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
@@ -32,6 +34,8 @@ public class WorkOutline extends AbstractOutline {
   protected void execCreateChildPages(List<IPage<?>> pageList) {
     super.execCreateChildPages(pageList);
     pageList.add(new AcePage());
+    pageList.add(new CodeMirrorPage());
+    pageList.add(new MonacoPage());
   }
 
   @Override
